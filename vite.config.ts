@@ -1,16 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::", // listen on all network interfaces
+    host: true, // ensures it listens on 0.0.0.0
     port: 8080,
-    allowedHosts: ["collegealumnimanagemet.onrender.com"], // ✅ Add this line
+    allowedHosts: [
+      "collegealumnimanagemet.onrender.com", // ✅ main Render domain
+      ".onrender.com", // ✅ allows all Render subdomains (safe shortcut)
+    ],
   },
-  plugins: [react(), /* mode === "development" && componentTagger() */].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
